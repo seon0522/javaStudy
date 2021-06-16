@@ -15,10 +15,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-// JFrameÀÌ ÀÖ¾î¾ß È­¸éÀÌ ÇÏ³ª ¶ä
+// JFrameì´ ìˆì–´ì•¼ í™”ë©´ì´ í•˜ë‚˜ ëœ¸
 public class bookListViewer extends JFrame implements ActionListener{
-//	¶óº§ - ÅØ½ºÆ® ÇÊµå, ¹öÆ° 4°³, ±×¸®µå·¹ÀÌ¾Æ¿ôÀ» »ç¿ë
-	//input field´Â ¹öÆ°À» ´­·¯À» ¶§ ¼³Á¤
+//	ë¼ë²¨ - í…ìŠ¤íŠ¸ í•„ë“œ, ë²„íŠ¼ 4ê°œ, ê·¸ë¦¬ë“œë ˆì´ì•„ì›ƒì„ ì‚¬ìš©
+	//input fieldëŠ” ë²„íŠ¼ì„ ëˆŒëŸ¬ì„ ë•Œ ì„¤ì •
 	
 	private JTextField idField, titleField, publisherField, yearField, priceField;
 	private JButton previousBtn, nextBtn, insertBtn, finishBtn;
@@ -32,28 +32,28 @@ public class bookListViewer extends JFrame implements ActionListener{
 
 	public bookListViewer() throws Exception {
 		
-		//·ÎÁ÷1 db¿¡¼­ Ã¥ ·¹ÄÚµåµéÀ» °¡Á®¿À±â
-//		1). JDBCµå¶óÀÌ¹öÀûÀç
+		//ë¡œì§1 dbì—ì„œ ì±… ë ˆì½”ë“œë“¤ì„ ê°€ì ¸ì˜¤ê¸°
+//		1). JDBCë“œë¼ì´ë²„ì ì¬
 			Class.forName(JDBC_DRIVER);
-//		2). DB¿¬°á
+//		2). DBì—°ê²°
 			con = DriverManager.getConnection(DB_SERVER_URL, DB_USER, DB_USER_PW);
-//		3). PreparedStatement °´Ã¼ »ı¼º
+//		3). PreparedStatement ê°ì²´ ìƒì„±
 			String sql = "select * from books order by book_id";
 //			PreparedStatement pstmt = con.prepareStatement(sql);
 			PreparedStatement pstmt = con.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			
 			
-//		4). SQL¹® ½ÇÇà
-		// executequery() - select / °á°ú ÁıÇÕÀ» ¹İÈ¯
-		// executeupdate() - insert, delete, update / Á¤¼ö°ª ¹İÈ¯
+//		4). SQLë¬¸ ì‹¤í–‰
+		// executequery() - select / ê²°ê³¼ ì§‘í•©ì„ ë°˜í™˜
+		// executeupdate() - insert, delete, update / ì •ìˆ˜ê°’ ë°˜í™˜
 			result = pstmt.executeQuery();
 		
 		
-//		1. JFrame¿¡ ·¹ÀÌ¾Æ¿ô ÁöÁ¤ - ±âº»Àº border 
-		// gridlayoutÀ¸·Î ¼³Á¤(0,2) = ÇÑ ÄÃ·³¿¡ 2°³¾¿ ¹èÄ¡
+//		1. JFrameì— ë ˆì´ì•„ì›ƒ ì§€ì • - ê¸°ë³¸ì€ border 
+		// gridlayoutìœ¼ë¡œ ì„¤ì •(0,2) = í•œ ì»¬ëŸ¼ì— 2ê°œì”© ë°°ì¹˜
 		this.setLayout(new GridLayout(0,2));
 		
-//		2. ÄÄÆ÷³ÍÆ®¸¦ »ı¼º		
+//		2. ì»´í¬ë„ŒíŠ¸ë¥¼ ìƒì„±		
 //		- field
 		idField = new JTextField();
 		titleField = new JTextField();
@@ -67,9 +67,9 @@ public class bookListViewer extends JFrame implements ActionListener{
 		insertBtn = new JButton("insert");
 		finishBtn = new JButton("finish");
 		
-//3. »ı¼º ÈÄ º¸¿©ÁÖ±â À§ÇØ »ı¼ºµÈ ÄÄÆ÷³ÍÆ®µéÀ» jFrame°´Ã¼¿¡ ºÙÀÌ±â
-//		- JLable - º¸¿©ÁÖ´Â°Ô ´Ù¶ó¼­ ´Ù ¹ÚÀ½
-//		- field ºÙÀÌ±â
+//3. ìƒì„± í›„ ë³´ì—¬ì£¼ê¸° ìœ„í•´ ìƒì„±ëœ ì»´í¬ë„ŒíŠ¸ë“¤ì„ jFrameê°ì²´ì— ë¶™ì´ê¸°
+//		- JLable - ë³´ì—¬ì£¼ëŠ”ê²Œ ë‹¤ë¼ì„œ ë‹¤ ë°•ìŒ
+//		- field ë¶™ì´ê¸°
 		this.add(new JLabel("id", JLabel.CENTER));
 		this.add(idField);
 		this.add(new JLabel("title", JLabel.CENTER));
@@ -81,8 +81,8 @@ public class bookListViewer extends JFrame implements ActionListener{
 		this.add(new JLabel("price", JLabel.CENTER));		
 		this.add(priceField);
 		
-//		-¹öÆ°¿¡ ¾×¼Ç Ãß°¡ ÈÄ buttonºÙÀÌ±â
-		previousBtn.addActionListener(this);  // ¾×¼Ç ºÙÀÌ±â
+//		-ë²„íŠ¼ì— ì•¡ì…˜ ì¶”ê°€ í›„ buttonë¶™ì´ê¸°
+		previousBtn.addActionListener(this);  // ì•¡ì…˜ ë¶™ì´ê¸°
 		this.add(previousBtn);
 		nextBtn.addActionListener(this);
 		this.add(nextBtn);
@@ -91,9 +91,9 @@ public class bookListViewer extends JFrame implements ActionListener{
 		finishBtn.addActionListener(this);
 		this.add(finishBtn);		
 		
-//		4. È­¸éÀÌ º¯°æ µÉ ¶§ ¼³Á¤
+//		4. í™”ë©´ì´ ë³€ê²½ ë  ë•Œ ì„¤ì •
 //		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //
-		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);//x¸¦ ´­·¯µµ ¸ø ²û
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);//xë¥¼ ëˆŒëŸ¬ë„ ëª» ë”
 		this.setResizable(false);
 		this.setSize(350, 200);
 		
@@ -104,7 +104,7 @@ public class bookListViewer extends JFrame implements ActionListener{
 
 		try{
 			new bookListViewer();
-		//ui¶ó¼­ ÇÁ·Î±×·¥ÀÌ ³¡³ªµµ ¾È ²÷³², µ¶¸³µÈ ´Ù¸¥ ¾²·¹µå·Î µ¹¾Æ°¡±â ¶§¹® //¾²·¹µå´Â ½ÇÇàÀÇ Èå¸§. excuteflow
+		//uië¼ì„œ í”„ë¡œê·¸ë¨ì´ ëë‚˜ë„ ì•ˆ ëŠë‚¨, ë…ë¦½ëœ ë‹¤ë¥¸ ì“°ë ˆë“œë¡œ ëŒì•„ê°€ê¸° ë•Œë¬¸ //ì“°ë ˆë“œëŠ” ì‹¤í–‰ì˜ íë¦„. excuteflow
 		}catch (SQLException e) {
 			e.getMessage();
 		} catch (Exception e) {
@@ -116,24 +116,47 @@ public class bookListViewer extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		try {
 		if(e.getSource() == previousBtn) {
-			//°á°ú ÁıÇÕ¿¡ Ä¿¼­¸¦ ÀÌÀüÀ¸·Î ÀÌµ¿
+			//ê²°ê³¼ ì§‘í•©ì— ì»¤ì„œë¥¼ ì´ì „ìœ¼ë¡œ ì´ë™
 			result.previous();
-			// Ä¿¼­°¡ °¡¸®Å°´Â °á°ú ·¹ÄÚµåÀÇ ÄÃ·³°ªÀ» »Ì¾Æ¿Í¼­ JtextField °ªÀ¸·Î ¼³Á¤
+			// ì»¤ì„œê°€ ê°€ë¦¬í‚¤ëŠ” ê²°ê³¼ ë ˆì½”ë“œì˜ ì»¬ëŸ¼ê°’ì„ ë½‘ì•„ì™€ì„œ JtextField ê°’ìœ¼ë¡œ ì„¤ì •
 			setCurent_Book_info();
 			
 		}else if(e.getSource() == nextBtn) {
-			//°á°ú ÁıÇÕ¿¡ Ä¿¼­¸¦ ´ÙÀ½À¸·Î ÀÌµ¿
+			//ê²°ê³¼ ì§‘í•©ì— ì»¤ì„œë¥¼ ë‹¤ìŒìœ¼ë¡œ ì´ë™
 			result.next();
-			// Ä¿¼­°¡ °¡¸®Å°´Â °á°ú ·¹ÄÚµåÀÇ ÄÃ·³°ªÀ» »Ì¾Æ¿Í¼­ JtextField °ªÀ¸·Î ¼³Á¤
+			// ì»¤ì„œê°€ ê°€ë¦¬í‚¤ëŠ” ê²°ê³¼ ë ˆì½”ë“œì˜ ì»¬ëŸ¼ê°’ì„ ë½‘ì•„ì™€ì„œ JtextField ê°’ìœ¼ë¡œ ì„¤ì •
 			setCurent_Book_info();
 			
 		}else if(e.getSource() == insertBtn) {
 			//
 			System.out.println("insert");
+						String sql = "insert into books(title, publisher, year, price) values (?,?,?,?)";
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			
+			String title = titleField.getText();
+			
+			String publisher = publisherField.getText();
+			
+			String year = yearField.getText();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			java.util.Date date = sdf.parse(year);
+	
+			String price = priceField.getText();
+			
+			pstmt.setString(1, title);
+			pstmt.setString(2, publisher);
+			pstmt.setDate(3, Date.valueOf(year));
+			pstmt.setInt(4, Integer.valueOf(price));
+			
+			pstmt.executeUpdate();
+			JOptionPane.showMessageDialog(this, "ë“±ë¡");
+			reloading();
+			
+			
 		}else if(e.getSource() == finishBtn) {
 			//
 			System.out.println("finish");
-			System.out.println("ÇÁ·Î±×·¥À» Á¾·áÇÕ´Ï´Ù.");
+			System.out.println("í”„ë¡œê·¸ë¨ì„ ì¢…ë£Œí•©ë‹ˆë‹¤.");
 			con.close();
 			System.exit(0);
 		}
@@ -144,11 +167,20 @@ public class bookListViewer extends JFrame implements ActionListener{
 		
 	}
 	
+		private void reloading() throws Exception {
+		String sql = "select * from books order by book_id desc";
+		PreparedStatement pst = con.prepareStatement(sql);
+		
+		result = pst.executeQuery();
+		
+		}
+	
+	
 	private void setCurent_Book_info() throws Exception {
 		int bookId = result.getInt("book_id");
 		String title = result.getString("title");
 		String publisher = result.getString("publisher");
-		Date year = result.getDate("year");  //sqlÀÇ µ¥ÀÌÅÍ //ÀÚ¹Ù´Â sql¿¡µµ ÀÖ°í, util¿¡µµ ÀÖÀ½
+		Date year = result.getDate("year");  //sqlì˜ ë°ì´í„° //ìë°”ëŠ” sqlì—ë„ ìˆê³ , utilì—ë„ ìˆìŒ
 		int price = result.getInt("price");
 		
 		idField.setText(String.valueOf(bookId));
